@@ -25,15 +25,13 @@ or use straight / other package managers:
 
 #+begin_src elisp
 (use-package emacs-trans
-  :straight (:local-repo  "~/Documents/GitHub/emacs-trans")
+  :straight (:host github :repo "rtrppl/emacs-trans")
   :bind
   (:map global-map
 	("C-c d e n" . emacs-trans-next-sentence)
 	("C-c d e i" . emacs-trans-input)
 	("C-c d e r" . emacs-trans-region)))
 #+end_src
-
-The above keybindings are also the ones I would suggest.
 
 Currently these settings can be modified:
 
