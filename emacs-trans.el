@@ -59,5 +59,4 @@
       (erase-buffer)
       (insert translation))
     (next-window)
-    (emacs-trans-results-buffer-mode t)
     (display-buffer buffer)))
