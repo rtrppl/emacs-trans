@@ -1,6 +1,6 @@
 #+title: emacs-trans.el
 
-*emacs-trans.el* is a simple wrapper for the excellent [[https://github.com/soimort/translate-shell][translate-shell]] for Emacs.
+*emacs-trans.el* is a simple wrapper for the excellent [[https://github.com/soimort/translate-shell][translate-shell]] for Emacs. 
 
 ** Change log
 
@@ -9,7 +9,9 @@
 
 ** Installation
 
-Either clone the repository:
+Install translate-shell via your preferred method (=brew install translate-shell=, for example).
+
+Then either clone the repository:
 
 =git clone https://github.com/rtrppl/emacs-trans=
 
