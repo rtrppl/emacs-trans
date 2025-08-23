@@ -1,0 +1,49 @@
+#+title: emacs-trans.el
+
+*emacs-trans.el* is a simple wrapper for the excellent [[https://github.com/soimort/translate-shell][translate-shell]] for Emacs.
+
+** Change log
+
+*0.1*
+- first public release
+
+** Installation
+
+Either clone the repository:
+
+=git clone https://github.com/rtrppl/emacs-trans=
+
+and load the package by adding it to your .emacs or init.el:
+
+#+begin_src elisp
+(load "/path/to/emacs-trans/emacs-trans.el") 
+#+end_src
+
+or use straight / other package managers:
+
+#+begin_src elisp
+(use-package emacs-trans
+  :straight (:local-repo  "~/Documents/GitHub/emacs-trans")
+  :bind
+  (:map global-map
+	("C-c d e n" . emacs-trans-next-sentence)
+	("C-c d e i" . emacs-trans-input)
+	("C-c d e r" . emacs-trans-region)))
+#+end_src
+
+The above keybindings are also the ones I would suggest.
+
+Currently these settings can be modified:
+
+#+begin_src elisp
+(setq emacs-trans-show-alternatives "Y") ; will show alternative translation; default is "n"
+(setq emacs-trans-show-prompt-message "Y") ; will repeat the prompt; default is "n"
+(setq emacs-trans-show-languages "Y") ; will show the identified languages (from the string that this translated); default is "n"
+(setq emacs-target-language nil) ; target language; setting this to nil will use the system default language as target > default is ":en"
+#+end_src
+
+** Functions
+
+There are three user-facing functions of emacs-trans:
+
+=emacs-trans-next-sentence= and =emacs-trans-region= will translate the next sentence or the active region, respectively. =emacs-trans-input= will translate the input provided.
