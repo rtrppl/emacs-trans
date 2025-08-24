@@ -4,6 +4,9 @@
 
 ** Change log
 
+*0.1.1*
+- Added =emacs-trans-url= to open a URL at point (or otherwise provided) in Google Translate via =translate-shell=; minor fixes
+
 *0.1*
 - first public release
 
@@ -44,6 +47,38 @@ Currently these settings can be modified:
 
 ** Functions
 
-There are three user-facing functions of emacs-trans:
+There are four user-facing functions of emacs-trans:
 
-=emacs-trans-next-sentence= and =emacs-trans-region= will translate the next sentence or the active region, respectively. =emacs-trans-input= will translate the input provided.
+=emacs-trans-next-sentence= and =emacs-trans-region= will translate the next sentence or the active region, respectively. =emacs-trans-input= will translate the input provided. =emacs-trans-url= will open the URL at point with =translate-shell=.
+
+** Integration with elfeed
+
+To send the currently visited post in [[https://github.com/skeeto/elfeed][elfeed]] to Google Translate (via translate-shell/emacs-trans), you have to add this snippet to your init.el:
+
+#+begin_src elisp
+(defun elfeed-show-visit-emacs-trans ()
+  "Opent the URL of the current Elfeed entry in emacs-trans."
+  (interactive)
+  (let ((link (elfeed-entry-link elfeed-show-entry)))
+    (emacs-trans-url link)))
+#+end_src
+
+In order to bind this function to a key, you have to add it to =elfeed-show-mode-map=:
+
+See my elfeed configuration as an example:
+
+#+begin_src elisp
+(use-package elfeed
+	:defer t
+	:bind
+	(:map global-map
+	      ("C-x w" . elfeed))
+	(:map elfeed-search-mode-map
+	      ("G" . nil)
+	      ("g" . elfeed-search-fetch))
+	(:map elfeed-show-mode-map
+	      ("w" . elfeed-show-visit-website2org)
+	      ("e" . elfeed-show-visit-emacs-trans))
+	:config
+	(setq-default elfeed-search-filter "@6-months-ago +unread -youtube -later -newspaper"))
+#+end_src

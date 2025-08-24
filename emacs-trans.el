@@ -32,6 +32,9 @@
 
 
 ;;; Code:
+(require 'org) ; for grabbing the link in an org-document
+(require 'shr) ; for grabbing the link in an non-org-document
+
 
 (defvar emacs-trans-show-alternatives "n")
 (defvar emacs-trans-show-prompt-message "n")
@@ -44,6 +47,7 @@
  (set-mark (point))
  (forward-sentence)
  (let* ((sentence (buffer-substring-no-properties (region-beginning) (region-end)))
+	(sentence (replace-regexp-in-string "\n" " " sentence))
 	(trans-cmd (emacs-trans-create-trans-cmd))
 	(translation (emacs-trans-translate trans-cmd sentence)))
    (deactivate-mark)
@@ -61,6 +65,7 @@
  "Translates the active region."
  (interactive)
  (let* ((region (buffer-substring-no-properties (region-beginning) (region-end)))
+	(region (replace-regexp-in-string "\n" " " region))
 	(trans-cmd (emacs-trans-create-trans-cmd))
 	(translation (emacs-trans-translate trans-cmd region)))
    (emacs-trans-open-results-buffer translation)))
@@ -95,5 +100,22 @@
       (insert translation))
     (next-window)
     (display-buffer buffer)))
+
+;;;###autoload
+(defun emacs-trans-url (&optional url dummy)
+  "Opens url in Google Translate."
+  (interactive)
+  (let ((url (or url
+		 (thing-at-point-url-at-point)
+		 (get-text-property (point) 'shr-url)
+		 (when (derived-mode-p 'org-mode)
+		   (org-element-property :raw-link (org-element-context)))
+		 (read-string "Please enter a URL: ")))
+	(cmd "trans"))
+    (when emacs-target-language
+      (setq cmd (concat cmd " " emacs-target-language)))
+    (shell-command (concat cmd " " url))))
+
+    
 
 ;;; emacs-trans.el ends here
