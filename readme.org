@@ -1,8 +1,11 @@
 #+title: emacs-trans.el
 
-*emacs-trans.el* is a simple wrapper for the excellent [[https://github.com/soimort/translate-shell][translate-shell]] for Emacs. 
+*emacs-trans.el* is a simple wrapper for the excellent [[https://github.com/soimort/translate-shell][translate-shell]]. 
 
 ** Change log
+
+*0.1.2*
+- Improved design of translation buffer ("q=to kill this buffer"); small fixes
 
 *0.1.1*
 - Added =emacs-trans-url= to open a URL at point (or otherwise provided) in Google Translate via =translate-shell=; minor fixes
